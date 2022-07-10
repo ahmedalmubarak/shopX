@@ -4,6 +4,8 @@ import 'package:shopx/config/routes.dart';
 import 'package:shopx/features/auth/login/log_in_screen.dart';
 import 'package:shopx/features/home/home_screen.dart';
 import 'package:shopx/features/onboarding/onboarding_screen.dart';
+import 'package:shopx/features/product_detail/product_detail_screen.dart';
+import 'package:shopx/model/home_model/home_model.dart';
 
 Route<dynamic> onGenerate(RouteSettings settings) {
   switch (settings.name) {
@@ -14,6 +16,9 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       return MaterialPageRoute(builder: ((context) => const LoginScreen()));
     case AppRoutes.homePageRoute:
       return MaterialPageRoute(builder: ((context) => const HomeScreen()));
+    case AppRoutes.productDetailPageRoute:
+      return MaterialPageRoute(
+          builder: ((context) => const ProductDetailScreen()));
 
     default:
       return MaterialPageRoute(

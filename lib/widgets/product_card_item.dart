@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopx/config/routes.dart';
+import 'package:shopx/features/product_detail/product_detail_screen.dart';
 import 'package:shopx/model/home_model/home_model.dart';
 import 'package:shopx/widgets/rating_bar.dart';
 
@@ -30,24 +32,38 @@ class ProductCardItem extends StatelessWidget {
           Stack(
             clipBehavior: Clip.none,
             children: [
-              SizedBox(
-                width: double.infinity,
-                height: 184,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(defaultBorderRadius),
-                    topRight: Radius.circular(defaultBorderRadius),
-                  ),
-                  child: Image.network(
-                    product!.image!,
-                    fit: BoxFit.fill,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ProductDetailScreen(product: product),
+                    ),
+                  );
+                },
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 184,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(defaultBorderRadius),
+                      topRight: Radius.circular(defaultBorderRadius),
+                    ),
+                    child: Hero(
+                      tag: product!.id!,
+                      child: Image.network(
+                        product!.image!,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ChipDiscount(
-                  discountAmount: product!.discount,
+                  discountAmount: 0,
                   bgColor: AppColors.primary,
                 ),
               ),
@@ -78,12 +94,21 @@ class ProductCardItem extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  product!.name!,
-                  style: Theme.of(context).textTheme.subtitle2,
-                  softWrap: true,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.productDetailPageRoute,
+                      arguments: [product!.id],
+                    );
+                  },
+                  child: Text(
+                    product!.name!,
+                    style: Theme.of(context).textTheme.subtitle2,
+                    softWrap: true,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Column(
